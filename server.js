@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const { notes } = require("./Develop/db/db.json");
 
+// unique ids
+const ShortUniqueId = require('short-unique-id'); 
+const uid = new ShortUniqueId();
+uid.setDictionary("number");
+
 const PORT = process.env.PORT || 3001;
 
 app.use(express.static("public"));
@@ -19,7 +24,7 @@ app.get("/api/notes", (req, res) => {
 
 // post new notes to the db file
 app.post("/api/notes", (req, res) => {
-  console.log(req.body);
+  req.body.id = (uid.seq());
   res.json(req.body);
 });
 

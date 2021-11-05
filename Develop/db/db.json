@@ -1,8 +1,14 @@
 {
   "notes": [
     {
-      "title":"Test Title",
-      "text":"Test text"
+      "id": "1",
+      "title":"Coding",
+      "text":"Studying with Jane"
+    },
+    {
+      "id": "2",
+      "title":"Dinner",
+      "text":"Joey wants lasagna"
     }
   ]
 }
