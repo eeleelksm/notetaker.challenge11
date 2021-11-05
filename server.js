@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3001;
 
 // unique ids
 const ShortUniqueId = require('short-unique-id'); 
+const { response } = require("express");
 const uid = new ShortUniqueId({ length: 5 });
 uid.setDictionary("number");
 
@@ -37,18 +38,24 @@ function validateNote(note) {
   return true;
 }
 
-// reads the db file
+// find ids
+// BONUS
+function findById(id, notesArray) {
+  const result = notesArray.filter(note => note.id === id)[0];
+  return result;
+}
+
+// api/notes route
 app.get("/api/notes", (req, res) => {
   res.json(notes);
 });
 
-// returns the index.html file
-
-
+// /notes route
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
+// index.html route
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
@@ -66,6 +73,15 @@ app.post("/api/notes", (req, res) => {
   const note = createNewNote(req.body, notes);
   res.json(note);
   }
+});
+
+// ***** help needed - not working as intended
+// BONUS
+app.delete("/api/notes/:id", (req, res) => {
+  let noteId = findById(req.params.id, notes);
+  let readNotes = JSON.parse(fs.readFileSync("./Develop/db/db.json", "utf8"));
+  console.log(`Deletion of note with id ${noteId} successful.`)
+  res.json(readNotes);
 });
 
 app.listen(PORT, () => {
