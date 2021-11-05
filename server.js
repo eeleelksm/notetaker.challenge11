@@ -43,12 +43,14 @@ app.get("/api/notes", (req, res) => {
 });
 
 // returns the index.html file
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
-});
+
 
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 // post new notes to db.json
