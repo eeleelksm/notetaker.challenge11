@@ -42,6 +42,15 @@ app.get("/api/notes", (req, res) => {
   res.json(notes);
 });
 
+// returns the index.html file
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+});
+
+app.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
+});
+
 // post new notes to db.json
 app.post("/api/notes", (req, res) => {
   // unique ids created for each new note
