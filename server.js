@@ -87,6 +87,7 @@ app.post("/api/notes", (req, res) => {
 // BONUS
 app.delete("/api/notes/:id", (req, res) => {
   deleteNotes(req.params.id, notes);
+  res.json(true);
 });
 
 app.listen(PORT, () => {
