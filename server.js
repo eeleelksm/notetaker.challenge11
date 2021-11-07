@@ -38,12 +38,21 @@ function validateNote(note) {
   return true;
 }
 
-// find ids
 // BONUS
-function findById(id, notesArray) {
-  const result = notesArray.filter(note => note.id === id)[0];
-  return result;
-}
+function deleteNotes(id, notesArray) {
+  for (i = 0; i < notesArray.length; i++) {
+    let note = notesArray[i];
+
+    if (note.id = id) {
+      notesArray.splice(i, 1);
+      fs.writeFileSync(
+        path.join(__dirname, "./Develop/db/db.json"),
+        JSON.stringify({ notes: notesArray }, null, 2)
+      );
+      break;
+    }
+  }
+};
 
 // api/notes route
 app.get("/api/notes", (req, res) => {
@@ -75,13 +84,9 @@ app.post("/api/notes", (req, res) => {
   }
 });
 
-// ***** help needed - not working as intended
 // BONUS
 app.delete("/api/notes/:id", (req, res) => {
-  let noteId = findById(req.params.id, notes);
-  let readNotes = JSON.parse(fs.readFileSync("./Develop/db/db.json", "utf8"));
-  console.log(`Deletion of note with id ${noteId} successful.`)
-  res.json(readNotes);
+  deleteNotes(req.params.id, notes);
 });
 
 app.listen(PORT, () => {
